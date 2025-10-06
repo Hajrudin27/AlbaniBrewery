@@ -36,11 +36,11 @@
     });
   }
 
-  // Initial setup
+  // Setup
   sortCards(select.value);
   filterCards(search.value || '');
 
-  // Events
+  
   select.addEventListener('change', () => sortCards(select.value));
   search.addEventListener('input', () => filterCards(search.value));
 })();
