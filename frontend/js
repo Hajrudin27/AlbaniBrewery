@@ -1,0 +1,46 @@
+(function () {
+  const select = document.getElementById('searchFilter');
+  const search = document.getElementById('batchSearch');
+  const box = document.getElementById('reportsBox');
+
+  const getCards = () => Array.from(box.querySelectorAll('.report-card'));
+  const getDate = c => new Date(c.dataset.date).getTime();
+  const getProd = c => parseFloat(c.dataset.production || '0');
+  const getBatch = c => (c.dataset.batch || '').toLowerCase();
+
+  function sortCards(mode) {
+    const cards = getCards();
+
+    cards.sort((a, b) => {
+      switch (mode) {
+        case 'old-to-new':
+          return getDate(a) - getDate(b);
+        case 'prod-high-low':
+          return getProd(b) - getProd(a);
+        case 'prod-low-high':
+          return getProd(a) - getProd(b);
+        case 'new-to-old':
+        default:
+          return getDate(b) - getDate(a);
+      }
+    });
+
+    cards.forEach(c => box.appendChild(c));
+  }
+
+  function filterCards(query) {
+    const q = query.trim().toLowerCase();
+    getCards().forEach(card => {
+      const match = getBatch(card).includes(q);
+      card.style.display = match ? '' : 'none';
+    });
+  }
+
+  // Initial setup
+  sortCards(select.value);
+  filterCards(search.value || '');
+
+  // Events
+  select.addEventListener('change', () => sortCards(select.value));
+  search.addEventListener('input', () => filterCards(search.value));
+})();

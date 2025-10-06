@@ -1,0 +1,150 @@
+/* --- Basistema --- */
+:root{
+  --ink:#2c3e50;
+  --paper:#fff;
+  --muted:#6b7280;
+  --line:#dcdcdc;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: #faf8f3;
+  color: #333;
+}
+
+/* --- Production page layout --- */
+.production-body{
+  background:#fafafa;
+  color:#333;
+}
+
+.container{
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+/* Title card centered at top */
+.prod-header{
+  display:flex;
+  justify-content:center;
+  padding:2.5rem 1rem 1rem;
+}
+.prod-title-card{
+  background:var(--paper);
+  border:2px solid #000;
+  padding:1.2rem 2rem;
+  font-size:1.25rem;
+  font-weight:700;
+  border-radius:.5rem;
+  box-shadow:0 2px 0 #00000010;
+}
+
+/* Controls row */
+.prod-controls{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:2rem;
+  align-items:start;
+  margin-top: 1.25rem;
+  margin-bottom: 1rem;
+}
+.control-box{
+  border:2px solid #000;
+  border-radius:.4rem;
+  padding: .9rem;
+  background:#fff;
+}
+.control-box label{
+  display:block;
+  font-size:.9rem;
+  color:var(--muted);
+  margin-bottom:.35rem;
+}
+.control-box input,
+.control-box select{
+  width:100%;
+  padding:.65rem .75rem;
+  border:1px solid var(--line);
+  border-radius:.35rem;
+  font-size:1rem;
+  outline:none;
+}
+.control-box input:focus,
+.control-box select:focus{
+  border-color:#9aa7b2;
+}
+
+/* Reports area */
+.prod-reports h2{
+  font-size:1.1rem;
+  font-weight:700;
+  margin: .75rem 0 .5rem;
+  color:#111;
+}
+.reports-box{
+  border:2px solid #000;
+  background:#fff;
+  border-radius:.4rem;
+  padding:1rem;
+  min-height:420px;
+  max-height:65vh;
+  overflow:auto;
+}
+
+/* Report cards */
+.report-card{
+  border:1px solid var(--line);
+  border-radius:.4rem;
+  padding:1rem;
+  margin-bottom:.75rem;
+  background:#fff;
+}
+.report-row{
+  display:flex;
+  gap:.5rem;
+  align-items:center;
+  font-size:.98rem;
+  margin-bottom:.35rem;
+}
+.report-card p{
+  margin:.4rem 0 0;
+  color:#333;
+}
+
+/* Status pills */
+.pill{
+  margin-left:auto;
+  font-size:.8rem;
+  padding:.15rem .5rem;
+  border-radius:999px;
+  background:#eef2ff;
+  border:1px solid #c7d2fe;
+}
+.pill-new{ background:#ecfdf5; border-color:#a7f3d0; }
+.pill-warn{ background:#fff7ed; border-color:#fed7aa; }
+
+/* Footer link */
+.prod-footer{
+  text-align:center;
+  padding:2rem 1rem 3rem;
+}
+.prod-footer a{
+  color:var(--ink);
+  text-decoration:none;
+  font-weight:600;
+}
+.prod-footer a:hover{ text-decoration:underline; }
+
+/* Improve select look a bit (optional) */
+.control-box select {
+  appearance: none;
+  background-color: #fff;
+  background-image: none;
+}
+
+/* Responsive: stack controls on small screens */
+@media (max-width: 760px){
+  .prod-controls{ grid-template-columns: 1fr; gap:1rem; }
+}
