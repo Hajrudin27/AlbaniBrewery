@@ -1,0 +1,20 @@
+CREATE DATABASE AlbaniBrewery;
+USE AlbaniBrewery;
+
+CREATE TABLE Employee (
+    Employee_id INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(100) NOT NULL,
+    phone_number VARCHAR(20),
+    password VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE Batch (
+    Batch_id INT AUTO_INCREMENT PRIMARY sKEY,
+    production VARCHAR(100),
+    date DATE,
+    quality VARCHAR(50),
+    beer_type VARCHAR(50),
+    temperature DECIMAL(5,2),
+    employee_id INT,
+    FOREIGN KEY (employee_id) REFERENCES Employee(Employee_id)
+);
