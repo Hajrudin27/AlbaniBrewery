@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Albani – Production</title>
+ <link rel="stylesheet" href="./style.css">
+</head>
+<body class="production-body">
+
+  <!-- Top title card -->
+  <header class="prod-header">
+    <div class="prod-title-card">Batchside</div>
+  </header>
+
+  <!-- Controls row -->
+  <section class="prod-controls container" aria-label="Søgning og sortering">
+    <div class="control-box">
+      <label for="batchSearch">Søg efter batch-ID</label>
+      <input id="batchSearch" type="text" placeholder="fx AB-2025-001" aria-label="Søg efter batch-ID" />
+    </div>
+
+    <div class="control-box">
+      <label for="searchFilter">Sortér</label>
+      <select id="searchFilter" aria-label="Sorter rapporter">
+        <option value="new-to-old" selected>New to old</option>
+        <option value="old-to-new">Old to new</option>
+        <option value="prod-high-low">Highest production → lowest</option>
+        <option value="prod-low-high">Lowest production → highest</option>
+      </select>
+    </div>
+  </section>
+
+  <!-- Reports area -->
+  <main class="prod-reports container" aria-live="polite">
+    <h2>Batchrapporter (nyeste først)</h2>
+
+    <div class="reports-box" id="reportsBox">
+      <!-- Eksempel report cards – tilpas eller udskift med jeres data -->
+      <article class="report-card"
+               data-date="2025-10-06T09:45:00"
+               data-production="1200"
+               data-batch="AB-2025-007">
+        <div class="report-row">
+          <strong>Batch:</strong> <span class="batch-id">AB-2025-007</span>
+          <span class="pill pill-new">Ny</span>
+        </div>
+        <div class="report-row"><strong>Oprettet:</strong> 06-10-2025 09:45</div>
+        <div class="report-row"><strong>Øltype:</strong> IPA</div>
+        <div class="report-row"><strong>Production:</strong> 1,200 L</div>
+        <p>Temperatur OK. SG 1.052 → 1.014. Ingen afvigelser registreret.</p>
+      </article>
+
+      <article class="report-card"
+               data-date="2025-10-03T13:10:00"
+               data-production="950"
+               data-batch="AB-2025-006">
+        <div class="report-row">
+          <strong>Batch:</strong> <span class="batch-id">AB-2025-006</span>
+          <span class="pill">Afsluttet</span>
+        </div>
+        <div class="report-row"><strong>Oprettet:</strong> 03-10-2025 13:10</div>
+        <div class="report-row"><strong>Øltype:</strong> Lager</div>
+        <div class="report-row"><strong>Production:</strong> 950 L</div>
+        <p>Kuldestyring stabil. Noter: klar til aftapning.</p>
+      </article>
+
+      <article class="report-card"
+               data-date="2025-09-29T08:20:00"
+               data-production="700"
+               data-batch="AB-2025-005">
+        <div class="report-row">
+          <strong>Batch:</strong> <span class="batch-id">AB-2025-005</span>
+          <span class="pill pill-warn">Afvigelse</span>
+        </div>
+        <div class="report-row"><strong>Oprettet:</strong> 29-09-2025 08:20</div>
+        <div class="report-row"><strong>Øltype:</strong> Stout</div>
+        <div class="report-row"><strong>Production:</strong> 700 L</div>
+        <p>Alarm: temp spike 1.5°C i 20 min. Årsag: køleloop reset. Overvågning genoptaget.</p>
+      </article>
+    </div>
+  </main>
+
+  <footer class="prod-footer">
+    <a href="index.html">← Til forsiden</a>
+  </footer>
+  
+
+  <script src="scripts/production.js"></script>
+</body>
+</html>
