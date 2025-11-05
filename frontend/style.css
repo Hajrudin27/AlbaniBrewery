@@ -1,31 +1,85 @@
-/* --- Basistema --- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
 :root{
-  --ink:#2c3e50;
-  --paper:#fff;
-  --muted:#6b7280;
-  --line:#dcdcdc;
+  --ink:#1f2937;      /* primær tekst */
+  --paper:#ffffff;    /* kort/overflade */
+  --muted:#6b7280;    /* sekundær tekst */
+  --line:#e5e7eb;     /* kanter/linjer */
+
+  /* Brand / accent */
+  --brand:#0a7a45;
+  --brand-600:#0c8a4e;
+  --brand-700:#0f9c58;
+  --brand-800:#0b6a3d;
+
+  /* status */
+  --ok-bg:#ecfdf5;  --ok-border:#a7f3d0;
+  --warn-bg:#fff7ed;--warn-border:#fed7aa;
+  --new-bg:#eef2ff; --new-border:#c7d2fe;
+
+  --shadow: 0 2px 6px rgba(0,0,0,.06);
+}
+
+@media (prefers-color-scheme: dark){
+  :root{
+    --ink:#e5e7eb;
+    --paper:#111827;
+    --muted:#9ca3af;
+    --line:#374151;
+
+    --brand:#10b981;
+    --brand-600:#22c793;
+    --brand-700:#34d3a3;
+    --brand-800:#0ea371;
+
+    --shadow: 0 6px 16px rgba(0,0,0,.35);
+  }
+}
+
+html, body {
+  height: 100%;
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: Arial, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", sans-serif;
   margin: 0;
   background-color: #faf8f3;
   color: #333;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* --- Production page layout --- */
-.production-body{
-  background:#fafafa;
-  color:#333;
-}
-
+/* Fælles container */
 .container{
   max-width: 1100px;
   margin: 0 auto;
   padding: 0 1.25rem;
 }
 
-/* Title card centered at top */
+/* Fokus-tilstande for tastaturbrugere */
+:where(a, button, input, select){
+  outline: none;
+}
+:where(a, button, input, select):focus-visible{
+  box-shadow: 0 0 0 3px rgba(16,185,129,.35);
+  border-radius: .35rem;
+}
+
+/* Reducerede animationer */
+@media (prefers-reduced-motion: reduce){
+  * { animation: none !important; transition: none !important; }
+}
+
+/* ─────────────────────────────────────────
+   Production page (Batch history)
+────────────────────────────────────────── */
+.production-body{
+  background:#fafafa;
+  color:#333;
+}
+
 .prod-header{
   display:flex;
   justify-content:center;
@@ -52,9 +106,10 @@ body {
 }
 .control-box{
   border:2px solid #000;
-  border-radius:.4rem;
+  border-radius:.5rem;
   padding: .9rem;
-  background:#fff;
+  background:var(--paper);
+  box-shadow: var(--shadow);
 }
 .control-box label{
   display:block;
@@ -67,10 +122,12 @@ body {
   width:100%;
   padding:.65rem .75rem;
   border:1px solid var(--line);
-  border-radius:.35rem;
+  border-radius:.4rem;
   font-size:1rem;
-  outline:none;
+  background:#fff;
+  color:#111;
 }
+.control-box input::placeholder{ color:#9aa7b2; }
 .control-box input:focus,
 .control-box select:focus{
   border-color:#9aa7b2;
@@ -85,21 +142,27 @@ body {
 }
 .reports-box{
   border:2px solid #000;
-  background:#fff;
-  border-radius:.4rem;
+  background:var(--paper);
+  border-radius:.6rem;
   padding:1rem;
   min-height:420px;
   max-height:65vh;
   overflow:auto;
+  box-shadow: var(--shadow);
 }
 
 /* Report cards */
 .report-card{
   border:1px solid var(--line);
-  border-radius:.4rem;
+  border-radius:.6rem;
   padding:1rem;
   margin-bottom:.75rem;
-  background:#fff;
+  background:var(--paper);
+  transition: transform .05s ease, box-shadow .15s ease;
+}
+.report-card:hover{
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
 }
 .report-row{
   display:flex;
@@ -117,13 +180,13 @@ body {
 .pill{
   margin-left:auto;
   font-size:.8rem;
-  padding:.15rem .5rem;
+  padding:.2rem .6rem;
   border-radius:999px;
-  background:#eef2ff;
-  border:1px solid #c7d2fe;
+  background:var(--new-bg);
+  border:1px solid var(--new-border);
 }
-.pill-new{ background:#ecfdf5; border-color:#a7f3d0; }
-.pill-warn{ background:#fff7ed; border-color:#fed7aa; }
+.pill-new{ background:var(--ok-bg); border-color:var(--ok-border); }
+.pill-warn{ background:var(--warn-bg); border-color:var(--warn-border); }
 
 /* Footer link */
 .prod-footer{
@@ -137,14 +200,135 @@ body {
 }
 .prod-footer a:hover{ text-decoration:underline; }
 
-/* Improve select look a bit (optional) */
+/* Forbedret select look (beholder native på iOS) */
 .control-box select {
   appearance: none;
   background-color: #fff;
   background-image: none;
 }
 
-/* Responsive: stack controls on small screens */
+/* Responsive: stack controls på små skærme */
 @media (max-width: 760px){
   .prod-controls{ grid-template-columns: 1fr; gap:1rem; }
+}
+
+/* ─────────────────────────────────────────
+   Frontpage 
+────────────────────────────────────────── */
+.frontpage-body {
+  position: relative;
+  background-color: #fafafa;
+  color: #111;
+  text-align: center;
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  background-image: url("./images/bg.jpeg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;  
+  background-size: cover;         
+}
+
+.front-main, .front-footer, .front-header {
+  position: relative;
+  z-index: 2; 
+}
+
+.frontpage-body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(250, 250, 250, 0.85); 
+  z-index: 1;
+}
+
+.front-header {
+  background: var(--brand);
+  color: white;
+  padding: 2rem 1rem;
+  box-shadow: var(--shadow);
+}
+.front-header h1{
+  margin:0;
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  letter-spacing:.2px;
+}
+
+.front-main {
+  flex-grow: 1;
+  display: grid;
+  place-items: center;
+  padding: 2rem 1rem;
+}
+
+.front-card {
+  background: var(--paper);
+  border:1px solid var(--line);
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  max-width: 720px;
+  width: 100%;
+}
+
+.front-card h2{
+  margin:0 0 .75rem 0;
+  font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+}
+
+.front-card p{
+  margin:.25rem 0 1.25rem;
+  color: var(--muted);
+}
+
+/* Forside navigation */
+.front-nav{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap: .75rem;
+  margin-top: .5rem;
+}
+.front-btn {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:.5rem;
+  background: var(--brand);
+  color: white;
+  padding: .9rem 1.25rem;
+  border-radius: .6rem;
+  text-decoration: none;
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: var(--shadow);
+}
+.front-btn:hover { background: var(--brand-600); transform: translateY(-1px); }
+.front-btn:active { background: var(--brand-800); transform: translateY(0); }
+
+/* Sekundær knap (hvis I tilføjer flere) */
+.front-btn--ghost{
+  background: transparent;
+  color: var(--brand);
+  border: 1.5px solid var(--brand);
+}
+.front-btn--ghost:hover{
+  color:white; background: var(--brand-700);
+}
+
+/* Frontpage footer */
+.front-footer{
+  text-align:center;
+  padding: 1.5rem 1rem 2.25rem;
+  color: var(--muted);
+  font-size:.95rem;
+}
+
+/* Små skærme: strammere spacing */
+@media (max-width: 520px){
+  .front-card{ padding:1.25rem; border-radius:.85rem; }
+  .front-btn{ width:100%; }
 }
