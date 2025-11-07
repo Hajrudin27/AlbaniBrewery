@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Start Batch • Albani</title>
+  <style>
+    :root {
+      --watermark-url: url("images/bg.jpeg");
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: #0e1114;
+      color: #e7ecef;
+    }
+    body::before {
+      content: "";
+      position: fixed; inset: 0;
+      background-image: var(--watermark-url);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: .12;           
+      filter: grayscale(100%);
+      z-index: -1;
+      pointer-events: none;
+    }
+    .wrap {
+      min-height: 100%;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+    #startBtn {
+      appearance: none;
+      border: 0;
+      border-radius: 10px;
+      padding: 16px 24px;
+      font-weight: 700;
+      font-size: 18px;
+      background: #cc1b1b;
+      color: #fff;
+      cursor: pointer;
+      transition: transform .08s ease, opacity .2s ease;
+    }
+    #startBtn:hover { transform: translateY(-1px); }
+    #startBtn:active { transform: translateY(0); }
+    #startBtn:disabled { opacity: .6; cursor: not-allowed; }
+    .status { margin-top: 12px; color: #a9b4bf; font-size: 14px; text-align: center; min-height: 1.2em; }
+  </style>
+</head>
+<body>
+  <main class="wrap" aria-labelledby="page-title">
+    <h1 id="page-title" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(1px,1px,1px,1px);">Start Batch</h1>
+    <div>
+      <button id="startBtn" type="button">Start batch</button>
+      <div id="status" class="status" role="status" aria-live="polite"></div>
+    </div>
+  </main>
+  <script>
+    const btn = document.getElementById('startBtn');
+    const statusEl = document.getElementById('status');
+
+    btn.addEventListener('click', () => {
+      btn.disabled = true;
+      statusEl.textContent = 'Starting…';
+      // Simulate success after 700ms (no backend required)
+      setTimeout(() => {
+        statusEl.textContent = 'Batch started successfully (demo).';
+        setTimeout(() => { statusEl.textContent = ''; btn.disabled = false; }, 1500);
+      }, 700);
+    });
+  </script>
+</body>
+</html>
